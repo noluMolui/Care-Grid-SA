@@ -1,5 +1,12 @@
 begin;
-select plan(1);
-select pass('foundation database test');
+select plan(8);
+select has_table('public', 'profiles', 'profiles table exists');
+select has_table('public', 'resources', 'resources table exists');
+select has_table('public', 'check_ins', 'check-ins table exists');
+select has_table('public', 'posts', 'posts table exists');
+select has_table('public', 'resource_bookmarks', 'bookmarks table exists');
+select has_function('public', 'delete_my_account', 'account deletion RPC exists');
+select policies_are('public', 'profiles', ARRAY['profiles_delete_own', 'profiles_insert_own', 'profiles_select_own', 'profiles_update_own'], 'profile RLS policies exist');
+select policies_are('public', 'check_ins', ARRAY['check_ins_delete_own', 'check_ins_insert_own', 'check_ins_select_own', 'check_ins_update_own'], 'check-in RLS policies exist');
 select * from finish();
 rollback;

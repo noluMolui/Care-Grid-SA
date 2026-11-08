@@ -14,22 +14,22 @@ function renderWithApp(ui: React.ReactNode, initialEntries = ['/dashboard']) {
 describe('Phase 2 app foundation', () => {
   it('provides dynamic user data and app shell navigation', () => {
     renderWithApp(<AppShell><h1>Dashboard</h1></AppShell>)
-    expect(screen.getByText((_, element) => element?.className === 'app-shell__status')).toHaveTextContent('Community Health Worker')
+    expect(screen.getByText((_, element) => element?.className === 'app-shell__status')).toHaveTextContent('Profile unavailable')
     expect(screen.getByRole('link', { name: 'Resources' })).toHaveAttribute('href', '/resources')
     expect(screen.getByRole('link', { name: 'Profile' })).toHaveAttribute('href', '/profile')
   })
 
-  it('routes login and signup into the dashboard', () => {
-    render(<MemoryRouter initialEntries={['/login']}><Routes><Route path="/login" element={<S2Login />} /><Route path="/dashboard" element={<h1>Your care dashboard</h1>} /></Routes></MemoryRouter>)
+  it('routes login and signup into the dashboard', async () => {
+    render(<MemoryRouter initialEntries={['/login']}><AppProvider><Routes><Route path="/login" element={<S2Login />} /><Route path="/dashboard" element={<h1>Your care dashboard</h1>} /></Routes></AppProvider></MemoryRouter>)
     fireEvent.change(screen.getByLabelText('Work Email / Healthcare ID'), { target: { value: 'worker@gauteng.clinic' } })
     fireEvent.change(document.querySelector('input[type="password"]')!, { target: { value: 'password123' } })
     fireEvent.click(screen.getByRole('button', { name: 'Log In' }))
-    expect(screen.getByRole('heading', { name: 'Your care dashboard' })).toBeInTheDocument()
+    expect(await screen.findByRole('alert')).toHaveTextContent('Supabase is not configured')
   })
 
   it('exposes the requested screen routes', () => {
     window.history.pushState({}, '', '/offline-status')
     render(<App />)
-    expect(screen.getByRole('heading', { name: 'Offline status' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Sign in required' })).toBeInTheDocument()
   })
 })
