@@ -119,10 +119,76 @@ button { cursor: pointer; }
 .resource-number { font-weight: 700; letter-spacing: .08em; }
 .resource-card .button { justify-self: start; min-height: 40px; padding: 8px 12px; text-decoration: none; }
 .deescalation { margin-top: 4px; }
+.resources-list-screen h1, .community-screen h1, .profile-screen h1, .offline-screen h1 { margin-bottom: 0; }
+.empty-card { padding: 24px 16px; border-radius: 12px; color: #64748B; background: #FFFFFF; text-align: center; }
+.resource-footer { padding: 12px; color: #64748B; font-size: 11px; text-align: center; }
+.tracker-title { display: flex; align-items: center; gap: 12px; }
+.tracker-title > span { color: #0B7A6B; font-size: 26px; }
+.tracker-title h1 { margin: 0; font-size: 22px; }
+.tracker-title p { margin: 4px 0 0; color: #64748B; font-size: 12px; }
+.tracker-question { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tracker-question h2 { margin: 0; font-size: 17px; }
+.tracker-question span { border-radius: 999px; padding: 8px 10px; color: #0B7A6B; background: #E8F5E9; font-size: 11px; }
+.rating-row, .shift-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.rating, .shift-card { min-height: 72px; display: grid; place-items: center; gap: 4px; border: 0; border-radius: 12px; color: #1E293B; background: #FFFFFF; box-shadow: 0 2px 8px rgba(30, 41, 59, .04); }
+.rating strong { font-size: 18px; }
+.rating small, .shift-card small { font-size: 10px; }
+.rating--active, .shift-card--active { color: #FFFFFF; background: #0B7A6B; }
+.checkin-note { margin-top: 12px; padding: 12px; border-radius: 12px; background: #EEF2FF; }
+.checkin-note p { margin: 4px 0 0; color: #475569; font-size: 13px; }
+.shift-row { grid-template-columns: repeat(3, 1fr); }
+.shift-card { min-height: 112px; padding: 8px; font-size: 14px; }
+.community-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.community-heading h1 { margin: 0; font-size: 22px; }
+.community-heading p { margin: 4px 0 0; color: #64748B; font-size: 12px; }
+.community-heading .button { min-height: 40px; padding: 8px 12px; }
+.post-card { display: grid; gap: 12px; }
+.post-meta { display: grid; gap: 4px; }
+.post-meta span, .post-card footer { color: #64748B; font-size: 12px; }
+.post-card p { margin: 0; line-height: 1.5; }
+.escalate-warning { padding: 12px; border-radius: 12px; color: #93000A; background: #FEE2E2; font-size: 13px; }
+.profile-identity { display: flex; align-items: center; gap: 8px; }
+.profile-identity h2, .profile-identity p { margin: 0; }
+.profile-identity p { color: #64748B; font-size: 12px; }
+.profile-identity .status-pill { margin-left: auto; }
+.profile-avatar { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #0B7A6B; background: #E8F5E9; font-size: 24px; }
+.profile-token { display: grid; gap: 6px; margin-top: 16px; padding: 12px; border-radius: 8px; color: #0B7A6B; background: #EEF2FF; font-size: 12px; }
+.profile-token span { color: #475569; font-size: 11px; }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.profile-grid span { display: grid; gap: 4px; padding: 10px; border-radius: 8px; color: #64748B; background: #F8FAFC; font-size: 11px; }
+.profile-grid strong { color: #1E293B; font-size: 12px; }
+.danger-zone { color: #DC2626; background: #FEE2E2; }
+.danger-zone p { color: #475569; font-size: 12px; }
+.connection-card { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 8px; }
+.connection-card p { margin: 4px 0 0; color: #64748B; font-size: 12px; }
+.connection-card .button { grid-column: 1 / -1; }
+.connection-dot { color: #0B7A6B; font-size: 20px; }
+.connection-card--offline .connection-dot { color: #DC2626; }
+.offline-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.offline-list li { display: flex; justify-content: space-between; gap: 8px; color: #475569; font-size: 13px; }
+.offline-list span { color: #0B7A6B; font-size: 11px; }
+.sync-card strong { display: block; margin: 8px 0; color: #0B7A6B; font-size: 24px; }
+.sync-card p { color: #64748B; font-size: 12px; }
+.modal-card { position: relative; display: grid; gap: 16px; text-align: center; }
+.modal-card h2 { margin: 0; font-size: 24px; }
+.modal-card p { margin: 0; line-height: 1.5; }
+.modal-close { position: absolute; top: 8px; right: 8px; min-width: 44px; min-height: 44px; border: 0; color: #64748B; background: transparent; font-size: 28px; }
+.modal-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto; border-radius: 16px; color: #DC2626; background: #FEE2E2; font-size: 28px; }
+.modal-info, .modal-warning { display: grid; gap: 8px; padding: 16px; border-radius: 12px; text-align: left; }
+.modal-info { color: #0B7A6B; background: #EEF2FF; }
+.modal-info span { color: #475569; font-size: 13px; line-height: 1.5; }
+.modal-warning { color: #93000A; background: #FEE2E2; }
+.modal--drawer { align-items: end; padding: 0; }
+.sos-drawer { width: min(100%, 360px); display: grid; gap: 16px; padding: 24px 20px 32px; border-radius: 24px 24px 0 0; background: #FFFFFF; }
+.sos-drawer h2 { margin: 16px 0 0; font-size: 24px; }
+.sos-drawer p { margin: 0; color: #64748B; }
+.drawer-handle { width: 56px; height: 6px; margin: 0 auto; border-radius: 99px; background: #CBD5E1; }
+.sos-contact { display: grid; gap: 8px; padding: 16px; border-radius: 12px; color: #1E293B; background: #FEE2E2; text-decoration: none; }
+.sos-contact span { color: #DC2626; font-size: 20px; font-weight: 700; }
 .app-shell { min-height: 100vh; display: grid; grid-template-rows: auto auto 1fr auto; }
 .app-shell__header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; background: #FFFFFF; }
 .app-shell__brand { color: #0B7A6B; font-weight: 700; text-decoration: none; }
-.app-shell__crisis { border-radius: 8px; padding: 8px; color: #FFFFFF; background: #DC2626; font-size: 11px; text-decoration: none; }
+.app-shell__crisis { min-height: 44px; border: 0; border-radius: 8px; padding: 8px; color: #FFFFFF; background: #DC2626; font-size: 11px; text-decoration: none; }
 .app-shell__status { padding: 8px 16px; color: #475569; background: #E8F5E9; font-size: 12px; }
 .app-shell__main { padding: 16px; }
 .app-shell__tabs { position: sticky; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 8px 4px; background: #FFFFFF; box-shadow: 0 -4px 16px rgba(30, 41, 59, .08); }
