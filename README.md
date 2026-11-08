@@ -1,4 +1,4 @@
-# CareGrid SA (Team: Careforge)
+# CareGrid SA 
 **Geekulcha Annual Hackathon 2026 (#GKHack26) — Gov Innovation Track**
 
 ### Overview
