@@ -190,8 +190,14 @@ using (user_id = (select auth.uid()));
 
 insert into public.resources (title, category, description, url, is_published)
 values
-  ('Burnout reset', 'Burnout', 'Practical recovery steps for frontline healthcare workers.', null, true),
-  ('Know your workplace rights', 'Legal Rights', 'Confidential guidance for workplace rights and support.', null, true),
-  ('Safety planning', 'Safety', 'A practical safety planning guide for healthcare teams.', null, true),
-  ('Mental health first aid', 'Mental Health', 'Recognise distress and connect safely to support.', null, true)
-on conflict do nothing;
+  ('SADAG Healthcare Worker Support Line', 'Mental Health', 'Confidential counselling and referral support for South African healthcare workers.', 'tel:0800212223', true),
+  ('Workplace Wellness Helpline', 'Burnout', 'Practical support for burnout, compassion fatigue, workload pressure, and recovery planning.', null, true),
+  ('Trauma Support for Healthcare Workers', 'Mental Health', 'Grounding and trauma-informed support after difficult clinical events or patient loss.', null, true),
+  ('Healthcare Worker Legal Rights', 'Legal Rights', 'Confidential guidance on workplace rights, reporting pathways, and professional protection.', null, true),
+  ('Night Shift Safety and De-escalation', 'Safety', 'A practical safety and de-escalation guide for overnight and high-pressure clinical teams.', null, true)
+on conflict (title) do update
+set category = excluded.category,
+    description = excluded.description,
+    url = excluded.url,
+    is_published = excluded.is_published,
+    updated_at = now();

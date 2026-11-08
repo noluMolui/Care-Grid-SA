@@ -30,7 +30,10 @@ export async function listResources(userId: string, category?: ResourceCategory,
   const client = requireClient()
   let request = client.from('resources').select('*').eq('is_published', true).order('created_at', { ascending: false })
   if (category) request = request.eq('category', category)
-  if (query) request = request.ilike('title', `%${query}%`)
+  if (query) {
+    const safeQuery = query.replace(/[(),]/g, ' ')
+    request = request.or(`title.ilike.%${safeQuery}%,description.ilike.%${safeQuery}%,category.ilike.%${safeQuery}%`)
+  }
   const { data: resources, error } = await request
   if (error) throw error
   const { data: bookmarks, error: bookmarkError } = await client.from('resource_bookmarks').select('resource_id').eq('user_id', userId)
