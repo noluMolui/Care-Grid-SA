@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
-import { supabase, supabaseConfigError, type Profile, type Role } from '../lib/supabase'
+import { supabase, type Profile, type Role } from '../lib/supabase'
 import { deleteAccount, getProfile } from '../lib/repositories'
 
 export type AppUser = Profile
@@ -25,8 +25,8 @@ export function AppProvider({ children }: PropsWithChildren) {
   const [offline, setOffline] = useState(false)
   const [authUser, setAuthUser] = useState<User | null>(null)
   const [user, setUser] = useState<AppUser | null>(null)
-  const [authLoading, setAuthLoading] = useState(!supabaseConfigError)
-  const [authError, setAuthError] = useState<string | null>(supabaseConfigError)
+  const [authLoading, setAuthLoading] = useState(Boolean(supabase))
+  const [authError, setAuthError] = useState<string | null>(null)
 
   const loadProfile = async (session: Session | null) => {
     setAuthUser(session?.user ?? null)
@@ -70,20 +70,20 @@ export function AppProvider({ children }: PropsWithChildren) {
     offline,
     setOffline,
     signIn: async (email: string, password: string) => {
-      if (!supabase) throw new Error(supabaseConfigError ?? 'Supabase is not configured.')
+      if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
       setAuthError(null)
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
     },
     signUp: async ({ email, password, fullName, role, facility }: { email: string; password: string; fullName: string; role: Role; facility: string }) => {
-      if (!supabase) throw new Error(supabaseConfigError ?? 'Supabase is not configured.')
+      if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
       setAuthError(null)
       const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, role, facility } } })
       if (error) throw error
       if (!data.session) throw new Error('Account created. Check your email to confirm your account before signing in.')
     },
     logout: async () => {
-      if (!supabase) throw new Error(supabaseConfigError ?? 'Supabase is not configured.')
+      if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
       const { error } = await supabase.auth.signOut()
       if (error) throw error
     },

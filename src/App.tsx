@@ -20,7 +20,7 @@ import './index.css'
 function ShellRoute({ children }: { children: ReactNode }) {
   const { authLoading, authUser, authError } = useAppContext()
   if (authLoading) return <main className="screen"><div className="card">Loading secure session…</div></main>
-  if (!authUser) return <main className="auth-screen"><h1>Sign in required</h1><p>{authError ?? 'Your secure session has expired.'}</p><a className="button button--primary" href="/login">Go to Log In</a></main>
+  if (!authUser) return <main className="auth-screen"><h1>Sign in required</h1><p>{authError ?? 'Your secure session has expired. Sign in to continue.'}</p><a className="button button--primary" href="/login">Go to Log In</a></main>
   return <AppShell>{children}</AppShell>
 }
 

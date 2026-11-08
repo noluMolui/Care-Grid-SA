@@ -25,7 +25,7 @@ describe('Phase 2 app foundation', () => {
     fireEvent.change(screen.getByLabelText('Work Email / Healthcare ID'), { target: { value: 'worker@gauteng.clinic' } })
     fireEvent.change(document.querySelector('input[type="password"]')!, { target: { value: 'password123' } })
     fireEvent.click(screen.getByRole('button', { name: 'Log In' }))
-    expect(await screen.findByRole('alert')).toHaveTextContent('Supabase is not configured')
+    expect(await screen.findByRole('alert')).toHaveTextContent('Unable to reach the authentication service')
   })
 
   it('explains incomplete signup submissions instead of silently blocking them', () => {
