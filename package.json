@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:unit": "vitest run tests/unit tests/component --pool=threads --no-file-parallelism --no-isolate",
+    "test:unit": "vitest run tests/unit tests/component --pool=forks --no-file-parallelism --no-isolate",
     "test:db": "echo Database tests require Supabase CLI and a running local stack",
     "test:integration": "vitest run tests/integration",
     "test:e2e": "playwright test",
