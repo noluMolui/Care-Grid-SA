@@ -93,7 +93,7 @@ export type Post = {
   id: string
   author_id: string
   body: string
-  category: 'General' | 'Nursing' | 'CHW'
+  category: 'General' | 'Nursing' | 'CHW' | 'Night Shift Support' | 'CHW Community'
   is_anonymous: boolean
   created_at: string
   updated_at: string
