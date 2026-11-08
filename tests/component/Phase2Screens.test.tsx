@@ -5,6 +5,7 @@ import App from '../../src/App'
 import { AppProvider } from '../../src/context/AppContext'
 import { AppShell } from '../../src/components/AppShell'
 import { S2Login } from '../../src/screens/S2Login'
+import { S3Signup } from '../../src/screens/S3Signup'
 import { Route, Routes } from 'react-router-dom'
 
 function renderWithApp(ui: React.ReactNode, initialEntries = ['/dashboard']) {
@@ -25,6 +26,12 @@ describe('Phase 2 app foundation', () => {
     fireEvent.change(document.querySelector('input[type="password"]')!, { target: { value: 'password123' } })
     fireEvent.click(screen.getByRole('button', { name: 'Log In' }))
     expect(await screen.findByRole('alert')).toHaveTextContent('Supabase is not configured')
+  })
+
+  it('explains incomplete signup submissions instead of silently blocking them', () => {
+    render(<MemoryRouter initialEntries={['/signup']}><AppProvider><S3Signup /></AppProvider></MemoryRouter>)
+    fireEvent.click(screen.getByRole('button', { name: 'Sign Up' }))
+    expect(screen.getByRole('alert')).toHaveTextContent('Complete all fields')
   })
 
   it('exposes the requested screen routes', () => {

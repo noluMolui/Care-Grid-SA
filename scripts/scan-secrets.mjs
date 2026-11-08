@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
-const ignored = new Set(['.git', 'node_modules', 'dist'])
+const ignored = new Set(['.git', 'node_modules', 'dist', '.env', '.env.local', '.env.development', '.env.production'])
 const patterns = [/service_role/i, /eyJ[A-Za-z0-9_-]{20,}\./, /\.env$/]
 const findings = []
 
