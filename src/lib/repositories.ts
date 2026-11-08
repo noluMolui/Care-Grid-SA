@@ -1,6 +1,6 @@
 import type { User } from '@supabase/supabase-js'
 import { supabase } from './supabase'
-import type { CheckInInsert, CheckInUpdate, PostInsert, PostUpdate, ProfileUpdate, ResourceCategory } from './supabase'
+import type { CheckInInsert, CheckInUpdate, PostInsert, PostUpdate, ProfileUpdate, ResourceCategory, ResourceInsert, ResourceUpdate } from './supabase'
 
 function requireClient() {
   if (!supabase) throw new Error('Supabase is not configured.')
@@ -47,6 +47,23 @@ export async function setResourceBookmark(userId: string, resourceId: string, bo
     const { error } = await client.from('resource_bookmarks').delete().eq('user_id', userId).eq('resource_id', resourceId)
     if (error) throw error
   }
+}
+
+export async function createResource(input: ResourceInsert) {
+  const { data, error } = await requireClient().from('resources').insert(input).select().single()
+  if (error) throw error
+  return data
+}
+
+export async function updateResource(id: string, changes: ResourceUpdate) {
+  const { data, error } = await requireClient().from('resources').update(changes).eq('id', id).select().single()
+  if (error) throw error
+  return data
+}
+
+export async function deleteResource(id: string) {
+  const { error } = await requireClient().from('resources').delete().eq('id', id)
+  if (error) throw error
 }
 
 export async function listCheckIns(userId: string) {
