@@ -15,6 +15,7 @@ type AppContextValue = {
   signIn: (email: string, password: string) => Promise<void>
   signUp: (input: { email: string; password: string; fullName: string; role: Role; facility: string }) => Promise<void>
   resetPassword: (email: string) => Promise<void>
+  updatePassword: (password: string) => Promise<void>
   logout: () => Promise<void>
   removeAccount: () => Promise<void>
   refreshProfile: () => Promise<void>
@@ -23,7 +24,7 @@ type AppContextValue = {
 const AppContext = createContext<AppContextValue | null>(null)
 
 export function AppProvider({ children }: PropsWithChildren) {
-  const [offline, setOffline] = useState(false)
+  const [offline, setOffline] = useState(() => typeof navigator !== 'undefined' && !navigator.onLine)
   const [authUser, setAuthUser] = useState<User | null>(null)
   const [user, setUser] = useState<AppUser | null>(null)
   const [authLoading, setAuthLoading] = useState(Boolean(supabase))
@@ -43,6 +44,17 @@ export function AppProvider({ children }: PropsWithChildren) {
       setUser(null)
     }
   }
+
+  useEffect(() => {
+    const handleOnline = () => setOffline(false)
+    const handleOffline = () => setOffline(true)
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [])
 
   useEffect(() => {
     if (!supabase) {
@@ -86,6 +98,11 @@ export function AppProvider({ children }: PropsWithChildren) {
     resetPassword: async (email: string) => {
       if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
       const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` })
+      if (error) throw error
+    },
+    updatePassword: async (password: string) => {
+      if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
+      const { error } = await supabase.auth.updateUser({ password })
       if (error) throw error
     },
     logout: async () => {

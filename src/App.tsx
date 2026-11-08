@@ -5,6 +5,7 @@ import { AppShell } from './components/AppShell'
 import { S1Welcome } from './screens/S1Welcome'
 import { S2Login } from './screens/S2Login'
 import { S2ForgotPassword } from './screens/S2ForgotPassword'
+import { S2ResetPassword } from './screens/S2ResetPassword'
 import { S3Signup } from './screens/S3Signup'
 import { S4Dashboard } from './screens/S4Dashboard'
 import { S5PeerSupport } from './screens/S5PeerSupport'
@@ -40,6 +41,7 @@ export default function App() {
     <Route path="/profile" element={<ShellRoute><S11Profile /></ShellRoute>} />
     <Route path="/offline-status" element={<ShellRoute><S12OfflineStatus /></ShellRoute>} />
     <Route path="/forgot-password" element={<S2ForgotPassword />} />
+    <Route path="/reset-password" element={<S2ResetPassword />} />
     <Route path="*" element={<S1Welcome />} />
   </Routes></div></AppProvider></BrowserRouter>
 }

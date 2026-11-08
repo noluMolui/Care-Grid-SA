@@ -1,3 +1,12 @@
+import { useEffect, useRef } from 'react'
+
 export function SosDrawer({ onClose }: { onClose: () => void }) {
-  return <div className="modal modal--drawer" role="dialog" aria-modal="true" aria-labelledby="sos-title"><div className="sos-drawer"><div className="drawer-handle" /><h2 id="sos-title">Emergency SOS</h2><p>Immediate confidential support is available.</p><a className="sos-contact" href="tel:0800567567"><strong>SADAG 24/7 Helpline</strong><span>0800 567 567</span></a><a className="button button--danger" href="tel:0800567567">Call Helpline</a><button className="button button--secondary" onClick={onClose}>Close</button></div></div>
+  const closeButton = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    closeButton.current?.focus()
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose() }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [onClose])
+  return <div className="modal modal--drawer" role="dialog" aria-modal="true" aria-labelledby="sos-title"><div className="sos-drawer"><div className="drawer-handle" /><h2 id="sos-title">Emergency SOS</h2><p>Immediate confidential support is available.</p><a className="sos-contact" href="tel:0800567567"><strong>SADAG 24/7 Helpline</strong><span>0800 567 567</span></a><a className="button button--danger" href="tel:0800567567">Call Helpline</a><button ref={closeButton} className="button button--secondary" onClick={onClose}>Close</button></div></div>
 }
