@@ -1,0 +1,48 @@
+{
+  "name": "caregrid-sa",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run tests/unit tests/component --pool=threads --no-file-parallelism --no-isolate",
+    "test:db": "echo Database tests require Supabase CLI and a running local stack",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "db:reset": "npx supabase db reset && node scripts/seed-users.mjs",
+    "check": "npm run lint && npm run typecheck && npm run scan:secrets && npm run test:unit"
+  },
+  "dependencies": {
+    "@fontsource/inter": "latest",
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "vite": "latest",
+    "vite-plugin-pwa": "latest"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@testing-library/user-event": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "@vitejs/plugin-react": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "jsdom": "^25.0.1",
+    "playwright": "latest",
+    "tailwindcss": "latest",
+    "typescript": "^5.9.3",
+    "vitest": "latest"
+  }
+}
