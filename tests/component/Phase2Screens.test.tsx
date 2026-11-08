@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+vi.mock('../../src/lib/supabase', () => ({ supabase: null, supabaseConfigError: null }))
 import App from '../../src/App'
 import { AppProvider } from '../../src/context/AppContext'
 import { AppShell } from '../../src/components/AppShell'
