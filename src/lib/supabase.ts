@@ -38,6 +38,12 @@ export type Database = {
         Insert: ResourceBookmarkInsert
         Update: never
         Relationships: []
+      },
+      post_reports: {
+        Row: PostReport
+        Insert: PostReportInsert
+        Update: never
+        Relationships: []
       }
     }
   }
@@ -107,6 +113,14 @@ export type ResourceBookmark = {
   created_at: string
 }
 export type ResourceBookmarkInsert = Omit<ResourceBookmark, 'created_at'>
+export type PostReport = {
+  id: string
+  post_id: string
+  reporter_id: string
+  reason: string
+  created_at: string
+}
+export type PostReportInsert = Omit<PostReport, 'id' | 'created_at'>
 
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined

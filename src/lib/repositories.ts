@@ -114,3 +114,8 @@ export async function deletePost(id: string, userId: string) {
   const { error } = await requireClient().from('posts').delete().eq('id', id).eq('author_id', userId)
   if (error) throw error
 }
+
+export async function reportPost(input: { post_id: string; reporter_id: string; reason: string }) {
+  const { error } = await requireClient().from('post_reports').insert(input)
+  if (error) throw error
+}

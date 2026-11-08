@@ -53,6 +53,15 @@ create table if not exists public.resource_bookmarks (
   primary key (user_id, resource_id)
 );
 
+create table if not exists public.post_reports (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid not null references public.posts(id) on delete cascade,
+  reporter_id uuid not null references public.profiles(id) on delete cascade,
+  reason text not null check (char_length(reason) between 10 and 500),
+  created_at timestamptz not null default now(),
+  unique (post_id, reporter_id)
+);
+
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -142,6 +151,7 @@ alter table public.resources enable row level security;
 alter table public.check_ins enable row level security;
 alter table public.posts enable row level security;
 alter table public.resource_bookmarks enable row level security;
+alter table public.post_reports enable row level security;
 
 create policy "profiles_select_own" on public.profiles for select to authenticated
 using (id = (select auth.uid()) or public.is_admin());
@@ -187,6 +197,11 @@ create policy "bookmarks_insert_own" on public.resource_bookmarks for insert to 
 with check (user_id = (select auth.uid()));
 create policy "bookmarks_delete_own" on public.resource_bookmarks for delete to authenticated
 using (user_id = (select auth.uid()));
+
+create policy "reports_insert_own" on public.post_reports for insert to authenticated
+with check (reporter_id = (select auth.uid()));
+create policy "reports_select_own_or_admin" on public.post_reports for select to authenticated
+using (reporter_id = (select auth.uid()) or public.is_admin());
 
 insert into public.resources (title, category, description, url, is_published)
 values

@@ -14,6 +14,7 @@ type AppContextValue = {
   setOffline: (offline: boolean) => void
   signIn: (email: string, password: string) => Promise<void>
   signUp: (input: { email: string; password: string; fullName: string; role: Role; facility: string }) => Promise<void>
+  resetPassword: (email: string) => Promise<void>
   logout: () => Promise<void>
   removeAccount: () => Promise<void>
   refreshProfile: () => Promise<void>
@@ -81,6 +82,11 @@ export function AppProvider({ children }: PropsWithChildren) {
       const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, role, facility } } })
       if (error) throw error
       if (!data.session) throw new Error('Account created. Check your email to confirm your account before signing in.')
+    },
+    resetPassword: async (email: string) => {
+      if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` })
+      if (error) throw error
     },
     logout: async () => {
       if (!supabase) throw new Error('Unable to reach the authentication service. Please try again.')
