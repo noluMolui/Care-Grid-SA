@@ -1,5 +1,5 @@
 begin;
-select plan(8);
+select plan(11);
 select has_table('public', 'profiles', 'profiles table exists');
 select has_table('public', 'resources', 'resources table exists');
 select has_table('public', 'check_ins', 'check-ins table exists');
@@ -8,5 +8,8 @@ select has_table('public', 'resource_bookmarks', 'bookmarks table exists');
 select has_function('public', 'delete_my_account', 'account deletion RPC exists');
 select policies_are('public', 'profiles', ARRAY['profiles_delete_own', 'profiles_insert_own', 'profiles_select_own', 'profiles_update_own'], 'profile RLS policies exist');
 select policies_are('public', 'check_ins', ARRAY['check_ins_delete_own', 'check_ins_insert_own', 'check_ins_select_own', 'check_ins_update_own'], 'check-in RLS policies exist');
+select policies_are('public', 'resources', ARRAY['resources_admin_delete', 'resources_admin_insert', 'resources_admin_update', 'resources_select_published'], 'resource RLS policies exist');
+select policies_are('public', 'posts', ARRAY['posts_delete_own', 'posts_insert_own', 'posts_select_authenticated', 'posts_update_own'], 'post RLS policies exist');
+select policies_are('public', 'resource_bookmarks', ARRAY['bookmarks_delete_own', 'bookmarks_insert_own', 'bookmarks_select_own'], 'bookmark RLS policies exist');
 select * from finish();
 rollback;
