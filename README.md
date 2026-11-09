@@ -184,7 +184,7 @@ http://localhost:5173/reset-password
 https://your-production-domain/reset-password
 ```
 
-Replace `your-production-domain` with the exact deployed Vercel domain or custom domain.
+(https://caregridsouthafrica.vercel.app/)
 
 ## Security and permissions
 
