@@ -2,7 +2,7 @@
 
 **A privacy-first wellbeing and peer-support platform for South African healthcare workers.**
 
-CareGrid SA was built for the Geekulcha Annual Hackathon 2026 (#GKHack26), Gov Innovation Track. It supports community health workers, nurses, clinic support staff, and facilitators who face burnout, fatigue, difficult shifts, and limited access to confidential support.
+CareGrid SA supports community health workers, nurses, clinic support staff, and facilitators who face burnout, fatigue, difficult shifts, and limited access to confidential support.
 
 ## The problem
 
